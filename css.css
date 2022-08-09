@@ -46,14 +46,14 @@ html {
 
             }
  #loginDiv {
-            width: 37%;
+            width: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
             background-color: rgba(75, 81, 95, 0.3);
             box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
-            border-radius: 5px;
+            border-radius: 20px;
 	        margin:auto;
 			margin-top:100px;
         }
@@ -75,7 +75,9 @@ html {
               width: 30px;
               height: 17px;
           }
-          
+          label {
+            position:absolute;
+          }
           input {
              margin-left: 15px;
               border-radius: 5px;
