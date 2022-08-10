@@ -54,19 +54,18 @@ function nulluser() {
         document.getElementById("userName").focus();
     }
     else {
-        Bmob.Query('user').find().then(res => {
-            for (var i = 0; i < res.length; i++) {
-                if (res[i].username == un.value) {
-                    document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp用户名已存在！";
-                    document.getElementById("userName").focus();
-                    break;
-                }
-                else {
-                    document.getElementById("luser").innerHTML = "";
-                }
+        const query = Bmob.Query("user");
+        query.equalTo("username", "==", un.value);
+        query.find().then(res => {
+            console.log(res);
+            if (res[0].username == un.value) {
+                document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp用户名已存在！";
+                document.getElementById("userName").focus();
+                return;
             }
+        }).catch(err => {
+            document.getElementById("luser").innerHTML = "";
         });
-
     }
     return;
 }
