@@ -13,17 +13,15 @@
      <div id="loginDiv">
           <div style="padding: 0px 150px;">
                <h1>REGESTER</h1>
-               <table>
-                    <p>用户姓名:<input id="userName" type="text" autofocus onblur="nulluser()"><label id="luser"></label></p>
+               <p>用户姓名:<input id="userName" type="text" autocomplete="off" autofocus oninput="nulluser()"><label id="luser">&nbsp&nbsp&nbsp请输入用户名！</label></p>
 
-                    <p>用户密码:<input id="password" type="password" onblur="nullpwd()"><label id="lpwd"></label></p>
+               <p>用户密码:<input id="password" type="password" onblur="nullpwd()"><label id="lpwd"></label></p>
 
-                    <p>确认密码:<input id="surePassword" type="password" onblur="nullpwds()"><label id="lpwds"></label></p>
-               </table>
+               <p>确认密码:<input id="surePassword" type="password" onblur="nullpwds()"><label id="lpwds"></label></p>
+
                <p style="text-align: center;">
-                    <input type="submit" class="button" onclick="reg()" value="注册">
-                    <input type="reset" class="button" value="重置">
-                    <!--<input type="button" onclick="getuser()" value="tese">-->
+                    <input type="button" class="button" onclick="reg()" value="注册">
+                    <input type="button" class="button" onclick="reset()" value="重置">
                </p>
                <br><br>
           </div>

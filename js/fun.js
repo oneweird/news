@@ -1,4 +1,4 @@
-Bmob.initialize("d5e0119e35e700ff", "123123");
+Bmob.initialize("dd9384d25225c5ae", "123123");
 Bmob.debug(true)
 function reg() {
     var un = document.getElementById("userName");
@@ -7,9 +7,7 @@ function reg() {
     var lun = document.getElementById("luser").innerHTML;
     var lpwd = document.getElementById("lpwd").innerHTML;
     var lpwds = document.getElementById("lpwds").innerHTML;
-    nulluser();
-    nullpwd();
-    nullpwds();
+    ysnull();
     if (lun != "" || lpwd != "" || lpwds != "") {
         return;
     }
@@ -17,54 +15,78 @@ function reg() {
         return document.getElementById("lpwd").innerHTML = "&nbsp&nbsp&nbsp密码不相同";
     }
     else {
-        const query = Bmob.Query('user');
-        query.set("username", un.value)
-        query.set("pwd", pwd.value)
-        query.save().then(res => {
-            alert("注册成功！");
-        }).catch(err => {
-            alert("注册失败！");
-            document.getElementById("userName").value = "";
-            document.getElementById("password").value = "";
-            document.getElementById("surePassword").value = "";
-            document.getElementById("userName").focus();
-        })
+        if (un.value != "" && pwd.value != "" && pwds.value != "") {
+            const query = Bmob.Query('user');
+            query.set("username", un.value)
+            query.set("pwd", pwd.value)
+            query.save().then(res => {
+                reset();
+                alert("注册成功！");
+            }).catch(err => {
+                alert("注册失败！用户名已存在！");
+                document.getElementById("userName").value = "";
+                document.getElementById("userName").focus();
+            })
+        }
     }
 }
 
-function getuser() {
-    const query = Bmob.Query('user');
-    query.get.username('3').then(res => {
-        alert("1");
-    }).catch(err => {
-        alert("2");
-    })
+function reset() {
+    document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp请输入用户名！";
+    document.getElementById("lpwd").innerHTML = ""
+    document.getElementById("lpwds").innerHTML = ""
+    document.getElementById("userName").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("surePassword").value = "";
+    document.getElementById("userName").focus();
+}
+
+function ysnull() {
+    nullpwds();
+    nullpwd();
+    nulluser();
 }
 
 function nulluser() {
     var un = document.getElementById("userName");
     if (un.value == "") {
-        return document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp请输入用户名！";
+        document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp请输入用户名！";
+        document.getElementById("userName").focus();
     }
     else {
-        return document.getElementById("luser").innerHTML = "";
+        Bmob.Query('user').find().then(res => {
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].username == un.value) {
+                    document.getElementById("luser").innerHTML = "&nbsp&nbsp&nbsp用户名已存在！";
+                    document.getElementById("userName").focus();
+                    break;
+                }
+                else {
+                    document.getElementById("luser").innerHTML = "";
+                }
+            }
+        });
+
     }
+    return;
 }
 function nullpwd() {
     var pwd = document.getElementById("password");
     if (pwd.value == "") {
-        return document.getElementById("lpwd").innerHTML = "&nbsp&nbsp&nbsp请输入密码！";
+        document.getElementById("lpwd").innerHTML = "&nbsp&nbsp&nbsp请输入密码！";
     }
     else {
-        return document.getElementById("lpwd").innerHTML = "";
+        document.getElementById("lpwd").innerHTML = "";
     }
+    return;
 }
 function nullpwds() {
     var pwds = document.getElementById("surePassword");
     if (pwds.value == "") {
-        return document.getElementById("lpwds").innerHTML = "&nbsp&nbsp&nbsp请输入密码！";
+        document.getElementById("lpwds").innerHTML = "&nbsp&nbsp&nbsp请输入密码！";
     }
     else {
-        return document.getElementById("lpwds").innerHTML = "";
+        document.getElementById("lpwds").innerHTML = "";
     }
+    return;
 }
