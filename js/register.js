@@ -16,8 +16,8 @@ function reg() {
     }
     else {
         if (un.value != "" && pwd.value != "" && pwds.value != "") {
-            const query = Bmob.Query('user');
-            query.set("username", un.value)
+            const query = Bmob.Query('user');   //选择user表
+            query.set("username", un.value)     //
             query.set("pwd", pwd.value)
             query.save().then(res => {
                 reset();
